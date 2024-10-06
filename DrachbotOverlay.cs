@@ -21,17 +21,17 @@ using BepInEx.Configuration;
 using aag.Natives.Lib.Properties;
 using System.Timers;
 
-namespace Logless
+namespace DrachbotOverlay
 {
-    using static Logless.Plugin;
+    using static DrachbotOverlay.Plugin;
     using P = Plugin;
 
     [BepInProcess("Legion TD 2.exe")]
-    [BepInPlugin("UnitTracker", "UnitTracker", "1.4.1")]
+    [BepInPlugin("DrachbotOverlay", "DrachbotOverlay", "1.0")]
     public class Plugin : BaseUnityPlugin
     {
         private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
-        private readonly Harmony _harmony = new("UnitTracker");
+        private readonly Harmony _harmony = new("DrachbotOverlay");
         private Timer timer = new Timer();
         private Timer eventTimer = new Timer();
         private bool _registered = false;

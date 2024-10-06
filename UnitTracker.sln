@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTracker", "UnitTracker.csproj", "{07D9C0E0-3B0A-48D8-B38E-14759BAC54B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrachbotOverlay", "DrachbotOverlay.csproj", "{07D9C0E0-3B0A-48D8-B38E-14759BAC54B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

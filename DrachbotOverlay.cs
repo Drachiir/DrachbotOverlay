@@ -4,6 +4,7 @@ using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using UnityEngine;
+using System.Reflection;
 
 namespace DrachbotOverlay
 {
@@ -67,22 +68,44 @@ namespace DrachbotOverlay
 
         // Adds content of embedded html to the original gateway
         // Save result in custom gateway that we'll force the game to use
-        private void ReplaceFiles() {
+        private void ReplaceFiles() 
+        {
             var lines = File.ReadAllLines(_loadingViewsFileAbs);
-            
+
+            // Backup existing files
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one
             File.Copy(_loadingViewsFileAbs, _loadingViewsBackupFileAbs); // making a new backup
             if (File.Exists(_gatewayBackupFileAbs)) { File.Delete(_gatewayBackupFileAbs); }
             File.Copy(_gatewayFileAbs, _gatewayBackupFileAbs);
             if (File.Exists(_profileViewsBackupFileAbs)) { File.Delete(_profileViewsBackupFileAbs); }
             File.Copy(_profileViewsFileAbs, _profileViewsBackupFileAbs);
-            if (File.Exists(_drachbotFileAbs))
+
+            // Check if the drachbot file exists
+            if (!File.Exists(_drachbotFileAbs))
             {
-                File.Copy(Path.Combine(Environment.CurrentDirectory, @"Data\drachbot-views.js"), _drachbotFileAbs);
+                // Read the embedded resource from the assembly
+                var assembly = Assembly.GetExecutingAssembly();
+                var resourceName = "DrachbotOverlay.Data.drachbot_views.js";  // Make sure the namespace and folder structure matches
+
+                using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (resourceStream == null)
+                    {
+                        Logger.LogError("Drachbot Overlay: Embedded resource not found.");
+                        throw new FileNotFoundException("Embedded resource not found.");
+                    }
+
+                    // Copy the embedded resource to the desired location
+                    using (FileStream fileStream = new FileStream(_drachbotFileAbs, FileMode.Create, FileAccess.Write))
+                    {
+                        resourceStream.CopyTo(fileStream);
+                    }
+                }
             }
 
             Logger.LogInfo("Drachbot Overlay: Success");
         }
+
 
         // Delete custom gateway file
         private void CleanUp()

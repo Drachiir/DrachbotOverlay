@@ -49,4 +49,9 @@
     </Reference>
   </ItemGroup>
   
+  <ItemGroup>
+    <None Remove="Data\drachbot-views.js" />
+    <EmbeddedResource Include="Data\drachbot-views.js" />
+  </ItemGroup>
+  
 </Project>

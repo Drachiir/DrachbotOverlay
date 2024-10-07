@@ -70,8 +70,13 @@ namespace DrachbotOverlay
         // Save result in custom gateway that we'll force the game to use
         private void ReplaceFiles() 
         {
-            var lines = File.ReadAllLines(_loadingViewsFileAbs);
-
+            var gatewayLines = File.ReadAllLines(_gatewayFileAbs);
+            int gatewayExpectedLines = 165;
+            var loadingLines = File.ReadAllLines(_loadingViewsFileAbs);
+            int loadingExpectedLines = 488;
+            var profileLines = File.ReadAllLines(_profileViewsFileAbs);
+            int profileExpectedLines = 3384;
+            
             // Backup existing files
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one
             File.Copy(_loadingViewsFileAbs, _loadingViewsBackupFileAbs); // making a new backup
@@ -79,13 +84,12 @@ namespace DrachbotOverlay
             File.Copy(_gatewayFileAbs, _gatewayBackupFileAbs);
             if (File.Exists(_profileViewsBackupFileAbs)) { File.Delete(_profileViewsBackupFileAbs); }
             File.Copy(_profileViewsFileAbs, _profileViewsBackupFileAbs);
-
             // Check if the drachbot file exists
             if (!File.Exists(_drachbotFileAbs))
             {
                 // Read the embedded resource from the assembly
                 var assembly = Assembly.GetExecutingAssembly();
-                var resourceName = "DrachbotOverlay.Data.drachbot_views.js";  // Make sure the namespace and folder structure matches
+                var resourceName = "DrachbotOverlay.Data.drachbot-views.js";  // Make sure the namespace and folder structure matches
 
                 using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
                 {
@@ -102,7 +106,34 @@ namespace DrachbotOverlay
                     }
                 }
             }
-
+            
+            if (gatewayLines.Length != gatewayExpectedLines) {
+                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {gatewayExpectedLines} but was " + gatewayLines.Length);
+            }
+            else
+            {
+                gatewayLines[101] = $@"<script type=""text/javascript"" src=""hud/js/drachbot-views.js""></script>";
+            }
+            if (loadingLines.Length != loadingExpectedLines) {
+                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {loadingExpectedLines} but was " + loadingLines.Length);
+            }
+            else
+            {
+                string[] loadingSplit = loadingLines[306].Split(')');
+                loadingLines[306] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
+                loadingLines[318] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
+            }
+            if (profileLines.Length != profileExpectedLines) {
+                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {profileExpectedLines} but was " + profileLines.Length);
+            }
+            else
+            {
+                profileLines[433] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.name, profile: true }}),";
+            }
+            
+            File.WriteAllLines(_gatewayFileAbs, gatewayLines);
+            File.WriteAllLines(_loadingViewsFileAbs, loadingLines);
+            File.WriteAllLines(_profileViewsFileAbs, profileLines);
             Logger.LogInfo("Drachbot Overlay: Success");
         }
 

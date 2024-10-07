@@ -24,6 +24,9 @@ var DrachbotOverlay = React.createClass({
         this._isMounted = false;
     },
     fetchData: function (playername) {
+        if (this.props.queue === 'Classic') {
+            return null;
+        }
         const url = 'https://stats.drachbot.site/api/drachbot_overlay/' + playername;
         console.log('Fetching URL:', url); // Log the URL
 
@@ -83,9 +86,6 @@ var DrachbotOverlay = React.createClass({
         xhr.send();
     },
     render: function () {
-        if (this.props.queue === 'Classic') {
-            return null;
-        }
         var data = this.state.data;
         var loading = this.state.loading;
         var error = this.state.error;
@@ -104,11 +104,15 @@ var DrachbotOverlay = React.createClass({
 
         var eloChange = data.EloChange;
         var eloChangeDisplay = (eloChange > 0 ? '+' : '') + eloChange;
-
+        if (Object.keys(data.Masterminds).length > 4) {
+            var pixelOffset = '-360px';
+        } else {
+            var pixelOffset = '-260px';
+        }
         var styles = {
             overlay: {
                 position: 'absolute',
-                right: this.props.profile ? '20px' : '-260px',
+                right: this.props.profile ? '20px' : pixelOffset,
                 top: this.props.profile ? '40px' : '-20px',
                 width: 'max-content',
                 padding: '5px',
@@ -151,12 +155,12 @@ var DrachbotOverlay = React.createClass({
             },
             data: {
                 verticalAlign: 'center',
-                marginLeft: '4px'
+                marginLeft: '5px'
             },
             img: {
                 width: '32px',
                 height: '32px',
-                marginRight: '4px',
+                marginRight: '5px',
                 verticalAlign: 'middle'
             }
         };
@@ -182,7 +186,7 @@ var DrachbotOverlay = React.createClass({
             React.createElement('div', { style: this.props.flipped ? styles.overlayFlipped : styles.overlay },
                 React.createElement('h1', { style: styles.h1 }, 'Last 10 Games ' + (data.WinLose ? data.WinLose.Wins : '0') + 'W-' + (data.WinLose ? data.WinLose.Losses : '0') + 'L (' + (eloChangeDisplay || 'N/A') + ' Elo)'),
                 React.createElement('div', { style: styles.infoBox },
-                    React.createElement('div', { style: styles.dataBox }, 
+                    React.createElement('div', { style: styles.dataBox },
                         React.createElement('h1', { style: styles.h3 }, 'MMs:'),
                         sortedMasterminds.map(function(entry) {
                             var key = entry[0];
@@ -193,7 +197,7 @@ var DrachbotOverlay = React.createClass({
                             );
                         })
                     ),
-                    React.createElement('div', { style: styles.dataBox }, 
+                    React.createElement('div', { style: styles.dataBox },
                         React.createElement('h1', { style: styles.h3 }, 'Wave 1:'),
                         sortedWave1.map(function(entry) {
                             var key = entry[0];

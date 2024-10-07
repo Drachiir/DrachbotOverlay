@@ -95,7 +95,7 @@ var DrachbotOverlay = React.createClass({
         }
 
         if (error) {
-            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Error: ' + error.message + ' (Player: ' + this.props.playername + ')');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Error: (' + this.props.playername + ')');
         }
 
         if (!data) {
@@ -112,6 +112,7 @@ var DrachbotOverlay = React.createClass({
         var styles = {
             overlay: {
                 position: 'absolute',
+                whiteSpace: 'nowrap',
                 right: this.props.profile ? '20px' : pixelOffset,
                 top: this.props.profile ? '40px' : '-20px',
                 width: 'max-content',
@@ -123,6 +124,7 @@ var DrachbotOverlay = React.createClass({
             },
             overlayFlipped: {
                 position: 'absolute',
+                whiteSpace: 'nowrap',
                 right: '310px',
                 top: '-20px',
                 width: 'max-content',

@@ -1,7 +1,7 @@
 # Drachbot Overlay for Legion TD 2
 Shows a small breakdown of a persons last 10 **ranked** games. Works on profiles and ranked loading screens.
-![img.png](img.png)
-![img_1.png](img_1.png)
+![img.png](https://overlay.drachbot.site/image.png)
+![img_1.png](https://overlay.drachbot.site/image2.png)
 
 Forked from Legion-Enhancement-Suite https://github.com/BoSen29/Legion-Enhancement-Suite
 

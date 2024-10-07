@@ -83,6 +83,9 @@ var DrachbotOverlay = React.createClass({
         xhr.send();
     },
     render: function () {
+        if (this.props.queue === 'Classic') {
+            return null;
+        }
         var data = this.state.data;
         var loading = this.state.loading;
         var error = this.state.error;

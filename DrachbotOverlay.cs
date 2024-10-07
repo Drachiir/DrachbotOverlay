@@ -128,7 +128,7 @@ namespace DrachbotOverlay
             }
             else
             {
-                profileLines[433] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.name, profile: true }}),";
+                profileLines[433] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.playFabId, profile: true }}),";
             }
             
             File.WriteAllLines(_gatewayFileAbs, gatewayLines);

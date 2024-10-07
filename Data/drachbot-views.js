@@ -91,15 +91,15 @@ var DrachbotOverlay = React.createClass({
         var error = this.state.error;
 
         if (loading) {
-            return React.createElement('div', null, 'Loading...');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Loading...');
         }
 
         if (error) {
-            return React.createElement('div', null, 'Error: ' + error.message + ' (Player: ' + this.props.playername + ')');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Error: ' + error.message + ' (Player: ' + this.props.playername + ')');
         }
 
         if (!data) {
-            return React.createElement('div', null, 'No data available.');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'No data available.');
         }
 
         var eloChange = data.EloChange;

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Removes all logs from the game</Description>
-    <Version>1.0.1</Version>
+    <Description>Adds stats overlay</Description>
+    <Version>1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <PackageId>ltd2.mods.Kidev.Logless</PackageId>
-    <Title>Logless</Title>
-    <Authors>Kidev</Authors>
+    <PackageId>ltd2.mods.drachir.drachbotoverlay</PackageId>
+    <Title>DrachbotOverlay</Title>
+    <Authors>Drachir</Authors>
     <NoWarn>$(NoWarn);CS0436</NoWarn>
   </PropertyGroup>
   
@@ -29,10 +29,6 @@
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>D:\SteamLibrary\steamapps\common\Legion TD 2\Legion TD 2_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameClientApi">
-      <HintPath>D:\SteamLibrary\steamapps\common\Legion TD 2\Legion TD 2_Data\Managed\GameClientApi.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GameData">

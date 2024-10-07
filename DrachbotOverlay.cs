@@ -18,6 +18,9 @@ namespace DrachbotOverlay
         private string _gatewayBackupFileAbs;
         private string _loadingViewsFileAbs;
         private string _loadingViewsBackupFileAbs;
+        private string _profileViewsFileAbs;
+        private string _profileViewsBackupFileAbs;
+        private string _drachbotFileAbs;
 
         // When the plugin is loaded
         public void Awake() {
@@ -33,7 +36,12 @@ namespace DrachbotOverlay
                 Path.Combine(Paths.GameRootPath, "Legion TD 2_Data", "uiresources", "AeonGT", "hud", "js", "loading-views.js");
             _loadingViewsBackupFileAbs =
                 Path.Combine(Paths.GameRootPath, "Legion TD 2_Data", "uiresources", "AeonGT", "hud", "js", "loading-views-backup.js");
-
+            _profileViewsFileAbs =
+                Path.Combine(Paths.GameRootPath, "Legion TD 2_Data", "uiresources", "AeonGT", "hud", "js", "profile-views.js");
+            _profileViewsBackupFileAbs =
+                Path.Combine(Paths.GameRootPath, "Legion TD 2_Data", "uiresources", "AeonGT", "hud", "js", "profile-views-backup.js");
+            _drachbotFileAbs =
+                Path.Combine(Paths.GameRootPath, "Legion TD 2_Data", "uiresources", "AeonGT", "hud", "js", "drachbot-views.js");
             // Inject custom js and patch c#
             try {
                 CleanUp();
@@ -64,6 +72,14 @@ namespace DrachbotOverlay
             
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one
             File.Copy(_loadingViewsFileAbs, _loadingViewsBackupFileAbs); // making a new backup
+            if (File.Exists(_gatewayBackupFileAbs)) { File.Delete(_gatewayBackupFileAbs); }
+            File.Copy(_gatewayFileAbs, _gatewayBackupFileAbs);
+            if (File.Exists(_profileViewsBackupFileAbs)) { File.Delete(_profileViewsBackupFileAbs); }
+            File.Copy(_profileViewsFileAbs, _profileViewsBackupFileAbs);
+            if (File.Exists(_drachbotFileAbs))
+            {
+                File.Copy(Path.Combine(Environment.CurrentDirectory, @"Data\drachbot-views.js"), _drachbotFileAbs);
+            }
 
             Logger.LogInfo("Drachbot Overlay: Success");
         }
@@ -71,10 +87,22 @@ namespace DrachbotOverlay
         // Delete custom gateway file
         private void CleanUp()
         {
-            if (!File.Exists(_loadingViewsFileAbs)) return;
-            // todo enable dis badaboio
-            File.Delete(_loadingViewsFileAbs); // delete the modified version
-            File.Move(_loadingViewsBackupFileAbs, _loadingViewsFileAbs); // put the original back
+            if (File.Exists(_loadingViewsBackupFileAbs))
+            {
+                File.Delete(_loadingViewsFileAbs); // delete the modified version
+                File.Move(_loadingViewsBackupFileAbs, _loadingViewsFileAbs); // put the original back
+            }
+
+            if (File.Exists(_gatewayBackupFileAbs))
+            {
+                File.Delete(_gatewayFileAbs); // delete the modified version
+                File.Move(_gatewayBackupFileAbs, _gatewayFileAbs); // put the original back
+            }
+            if (File.Exists(_profileViewsFileAbs))
+            {
+                File.Delete(_profileViewsFileAbs); // delete the modified version
+                File.Move(_profileViewsBackupFileAbs, _profileViewsFileAbs); // put the original back
+            }
         }
     }
 }

@@ -98,10 +98,14 @@ namespace DrachbotOverlay
                 File.Delete(_gatewayFileAbs); // delete the modified version
                 File.Move(_gatewayBackupFileAbs, _gatewayFileAbs); // put the original back
             }
-            if (File.Exists(_profileViewsFileAbs))
+            if (File.Exists(_profileViewsBackupFileAbs))
             {
                 File.Delete(_profileViewsFileAbs); // delete the modified version
                 File.Move(_profileViewsBackupFileAbs, _profileViewsFileAbs); // put the original back
+            }
+            if (File.Exists(_drachbotFileAbs))
+            {
+                File.Delete(_drachbotFileAbs);
             }
         }
     }

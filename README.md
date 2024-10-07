@@ -1,6 +1,6 @@
 # Drachbot Overlay for Legion TD 2
 
-Forked from LogLess https://github.com/BoSen29/Legion-Enhancement-Suite
+Forked from Legion-Enhancement-Suite https://github.com/BoSen29/Legion-Enhancement-Suite
 
 ## Installation (Instructions stolen from https://github.com/LegionTD2-Modding/NarrowMasterMinded/ )
 - Close the game

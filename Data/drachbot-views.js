@@ -86,16 +86,19 @@ var DrachbotOverlay = React.createClass({
         xhr.send();
     },
     render: function () {
+        if (this.props.queue === 'Classic') {
+            return null;
+        }
         var data = this.state.data;
         var loading = this.state.loading;
         var error = this.state.error;
 
         if (loading) {
-            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Loading...');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Drachbot Loading...');
         }
 
         if (error) {
-            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Error: (' + this.props.playername + ')');
+            return React.createElement('div', { style: {top: '-10px', position: 'absolute'} }, 'Error: (Player: ' + this.props.playername + ')');
         }
 
         if (!data) {
@@ -104,20 +107,11 @@ var DrachbotOverlay = React.createClass({
 
         var eloChange = data.EloChange;
         var eloChangeDisplay = (eloChange > 0 ? '+' : '') + eloChange;
-        if (Object.keys(data.Masterminds).length > 4) {
-            var pixelOffset = '-360px';
-        } else {
-            var pixelOffset = '-260px';
-        }
         var styles = {
             overlay: {
                 position: 'absolute',
                 whiteSpace: 'nowrap',
-                right: this.props.profile ? '20px' : pixelOffset,
-                top: this.props.profile ? '40px' : '-20px',
-                width: 'max-content',
                 padding: '5px',
-                maxHeight: '128px',
                 background: 'rgba(61, 97, 114, 0.5)',
                 margin: '20px auto',
                 border: '1px solid #55868a'
@@ -125,11 +119,9 @@ var DrachbotOverlay = React.createClass({
             overlayFlipped: {
                 position: 'absolute',
                 whiteSpace: 'nowrap',
-                right: '310px',
+                right: '295px',
                 top: '-20px',
-                width: 'max-content',
-                padding: '10px',
-                maxHeight: '128px',
+                padding: '5px',
                 background: 'rgba(61, 97, 114, 0.5)',
                 margin: '20px auto',
                 border: '1px solid #55868a'
@@ -141,13 +133,14 @@ var DrachbotOverlay = React.createClass({
             },
             infoBox: {
                 color: 'white',
-                fontSize: '14px',
+                fontSize: '15px',
                 maxHeight: '80px'
             },
             dataBox: {
                 display: 'flex',
                 flexWrap: 'nowrap',
                 maxHeight: '80px',
+                padding: '5px',
                 verticalAlign: 'middle'
             },
             h3: {
@@ -157,16 +150,25 @@ var DrachbotOverlay = React.createClass({
             },
             data: {
                 verticalAlign: 'center',
-                marginLeft: '5px'
+                marginLeft: '6px'
             },
             img: {
                 width: '32px',
                 height: '32px',
-                marginRight: '5px',
+                marginRight: '6px',
                 verticalAlign: 'middle'
             }
         };
-
+        if (this.props.profile) {
+            styles.overlay.top = '40px';
+            styles.overlay.right = '20px';
+            styles.overlay.padding = '5px';
+            styles.h1.marginBottom = '0px';
+            styles.dataBox.padding = '0px';
+        } else {
+            styles.overlay.top = '-20px';
+            styles.overlay.left = '295px';
+        }
         // Simplified sorting logic
         function sortEntriesByValueDesc(obj) {
             var entries = [];
@@ -185,7 +187,7 @@ var DrachbotOverlay = React.createClass({
         var sortedWave1 = sortEntriesByValueDesc(data.Wave1 || {});
 
         return (
-            React.createElement('div', { style: this.props.flipped ? styles.overlayFlipped : styles.overlay },
+            React.createElement('div', { class: 'loadingSticker', style: this.props.flipped ? styles.overlayFlipped : styles.overlay },
                 React.createElement('h1', { style: styles.h1 }, 'Last 10 Games ' + (data.WinLose ? data.WinLose.Wins : '0') + 'W-' + (data.WinLose ? data.WinLose.Losses : '0') + 'L (' + (eloChangeDisplay || 'N/A') + ' Elo)'),
                 React.createElement('div', { style: styles.infoBox },
                     React.createElement('div', { style: styles.dataBox },

@@ -108,33 +108,33 @@ namespace DrachbotOverlay
             }
             
             if (gatewayLines.Length != gatewayExpectedLines) {
-                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {gatewayExpectedLines} but was " + gatewayLines.Length);
+                Logger.LogError($"Drachbot: Skipping injection, gatewayfile is not expected length of {gatewayExpectedLines} but was " + gatewayLines.Length);
             }
             else
             {
                 gatewayLines[101] = $@"<script type=""text/javascript"" src=""hud/js/drachbot-views.js""></script>";
-            }
-            if (loadingLines.Length != loadingExpectedLines) {
-                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {loadingExpectedLines} but was " + loadingLines.Length);
-            }
-            else
-            {
-                string[] loadingSplit = loadingLines[306].Split(')');
-                loadingLines[306] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
-                loadingLines[318] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
-            }
-            if (profileLines.Length != profileExpectedLines) {
-                Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {profileExpectedLines} but was " + profileLines.Length);
-            }
-            else
-            {
-                profileLines[433] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.playFabId, profile: true }}),";
-            }
+                if (loadingLines.Length != loadingExpectedLines) {
+                    Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {loadingExpectedLines} but was " + loadingLines.Length);
+                }
+                else
+                {
+                    string[] loadingSplit = loadingLines[306].Split(')');
+                    loadingLines[306] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
+                    loadingLines[318] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
+                }
+                if (profileLines.Length != profileExpectedLines) {
+                    Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {profileExpectedLines} but was " + profileLines.Length);
+                }
+                else
+                {
+                    profileLines[433] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.playFabId, profile: true }}),";
+                }
             
-            File.WriteAllLines(_gatewayFileAbs, gatewayLines);
-            File.WriteAllLines(_loadingViewsFileAbs, loadingLines);
-            File.WriteAllLines(_profileViewsFileAbs, profileLines);
-            Logger.LogInfo("Drachbot Overlay: Success");
+                File.WriteAllLines(_gatewayFileAbs, gatewayLines);
+                File.WriteAllLines(_loadingViewsFileAbs, loadingLines);
+                File.WriteAllLines(_profileViewsFileAbs, profileLines);
+                Logger.LogInfo("Drachbot Overlay: Success");
+            }
         }
 
 

@@ -182,13 +182,20 @@ var DrachbotOverlay = React.createClass({
             });
             return entries;
         }
-
+        let titleString = '';
         var sortedMasterminds = sortEntriesByValueDesc(data.Masterminds || {});
         var sortedWave1 = sortEntriesByValueDesc(data.Wave1 || {});
-
+        try {
+            if (data.String) {
+                titleString = data.String;
+            }
+        } catch (error) {
+            titleString = 'Last 10 Games';
+            console.error('Error:', error);
+        }
         return (
             React.createElement('div', { class: 'loadingSticker', style: this.props.flipped ? styles.overlayFlipped : styles.overlay },
-                React.createElement('h1', { style: styles.h1 }, 'Last 10 Games ' + (data.WinLose ? data.WinLose.Wins : '0') + 'W-' + (data.WinLose ? data.WinLose.Losses : '0') + 'L (' + (eloChangeDisplay || 'N/A') + ' Elo)'),
+                React.createElement('h1', { style: styles.h1 }, titleString + ' ' + (data.WinLose ? data.WinLose.Wins : '0') + 'W-' + (data.WinLose ? data.WinLose.Losses : '0') + 'L (' + (eloChangeDisplay || 'N/A') + ' Elo)'),
                 React.createElement('div', { style: styles.infoBox },
                     React.createElement('div', { style: styles.dataBox },
                         React.createElement('h1', { style: styles.h3 }, 'MMs:'),

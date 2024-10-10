@@ -182,7 +182,7 @@ var DrachbotOverlay = React.createClass({
             });
             return entries;
         }
-        let titleString = '';
+        var titleString = '';
         var sortedMasterminds = sortEntriesByValueDesc(data.Masterminds || {});
         var sortedWave1 = sortEntriesByValueDesc(data.Wave1 || {});
         try {

@@ -160,9 +160,13 @@ var DrachbotOverlay = React.createClass({
             }
         };
         if (this.props.profile) {
-            styles.overlay.top = '40px';
-            styles.overlay.right = '20px';
-            styles.overlay.padding = '5px';
+            styles.overlay.position = 'static';
+            styles.overlay.top = '0';
+            styles.overlay.right = '0';
+            styles.overlay.padding = '0';
+            styles.overlay.background = 'transparent';
+            styles.overlay.border = 'none';
+            styles.overlay.margin = '0';
             styles.h1.marginBottom = '0px';
             styles.dataBox.padding = '0px';
         } else {

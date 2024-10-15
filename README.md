@@ -1,8 +1,8 @@
 # Drachbot Overlay for Legion TD 2
 Shows a small breakdown of a persons last 20 **ranked** games.
 Works on profiles and ranked loading screens.
-![img.png](https://overlay.drachbot.site/image.png)
-![img_1.png](https://overlay.drachbot.site/image2.png)
+<img alt="img.png" src="https://overlay.drachbot.site/image.png" width="400"/>
+<img alt="img_1.png" src="https://overlay.drachbot.site/image2.png" width="400"/>
 
 Forked from [https://github.com/BoSen29/UnitTracker](https://github.com/BoSen29/UnitTracker)
 

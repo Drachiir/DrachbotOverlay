@@ -73,9 +73,9 @@ namespace DrachbotOverlay
             var gatewayLines = File.ReadAllLines(_gatewayFileAbs);
             int gatewayExpectedLines = 165;
             var loadingLines = File.ReadAllLines(_loadingViewsFileAbs);
-            int loadingExpectedLines = 489;
+            int loadingExpectedLines = 510;
             var profileLines = File.ReadAllLines(_profileViewsFileAbs);
-            int profileExpectedLines = 3408;
+            int profileExpectedLines = 3423;
             
             // Backup existing files
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one
@@ -127,8 +127,8 @@ namespace DrachbotOverlay
                 }
                 else
                 {
-                    profileLines[616] += $@", React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.name, profile: true }})";
-                    profileLines[838] = $@"                                top: '-12px',";
+                    profileLines[631] += $@", React.createElement(window.DrachbotOverlay, {{ playername: this.state.profile.name, profile: true }})";
+                    profileLines[853] = $@"                                top: '-12px',";
                 }
             
                 File.WriteAllLines(_gatewayFileAbs, gatewayLines);

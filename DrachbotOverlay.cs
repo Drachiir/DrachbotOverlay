@@ -119,7 +119,7 @@ namespace DrachbotOverlay
                 else
                 {
                     string[] loadingSplit = loadingLines[308].Split(')');
-                    loadingLines[308] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
+                    loadingLines[308] = loadingSplit[0] + ')' + loadingSplit[1] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[2];
                     loadingLines[334] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
                 }
                 if (profileLines.Length != profileExpectedLines) {

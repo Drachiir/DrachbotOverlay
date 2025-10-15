@@ -119,7 +119,7 @@ var DrachbotOverlay = React.createClass({
             overlayFlipped: {
                 position: 'absolute',
                 whiteSpace: 'nowrap',
-                right: '295px',
+                right: '345px',
                 top: '-20px',
                 padding: '5px',
                 background: 'rgba(61, 97, 114, 0.5)',
@@ -171,7 +171,7 @@ var DrachbotOverlay = React.createClass({
             styles.dataBox.padding = '0px';
         } else {
             styles.overlay.top = '-20px';
-            styles.overlay.left = '295px';
+            styles.overlay.left = '345px';
         }
         // Simplified sorting logic
         function sortEntriesByValueDesc(obj) {

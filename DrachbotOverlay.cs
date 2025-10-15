@@ -73,9 +73,9 @@ namespace DrachbotOverlay
             var gatewayLines = File.ReadAllLines(_gatewayFileAbs);
             int gatewayExpectedLines = 165;
             var loadingLines = File.ReadAllLines(_loadingViewsFileAbs);
-            int loadingExpectedLines = 510;
+            int loadingExpectedLines = 525;
             var profileLines = File.ReadAllLines(_profileViewsFileAbs);
-            int profileExpectedLines = 3423;
+            int profileExpectedLines = 3441;
             
             // Backup existing files
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one
@@ -118,9 +118,9 @@ namespace DrachbotOverlay
                 }
                 else
                 {
-                    string[] loadingSplit = loadingLines[307].Split(')');
-                    loadingLines[307] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
-                    loadingLines[319] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
+                    string[] loadingSplit = loadingLines[308].Split(')');
+                    loadingLines[308] = loadingSplit[0] + ')' + $@", style: {{ position: 'relative' }}" + loadingSplit[1];
+                    loadingLines[334] += $@" React.createElement(window.DrachbotOverlay, {{ playername: this.state.name, flipped: this.props.flipped, queue: globalState.matchmakerQueue }}),";
                 }
                 if (profileLines.Length != profileExpectedLines) {
                     Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {profileExpectedLines} but was " + profileLines.Length);

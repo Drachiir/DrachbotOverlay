@@ -75,7 +75,7 @@ namespace DrachbotOverlay
             var loadingLines = File.ReadAllLines(_loadingViewsFileAbs);
             int loadingExpectedLines = 525;
             var profileLines = File.ReadAllLines(_profileViewsFileAbs);
-            int profileExpectedLines = 3441;
+            int profileExpectedLines = 3445;
             
             // Backup existing files
             if (File.Exists(_loadingViewsBackupFileAbs)) { File.Delete(_loadingViewsBackupFileAbs); } // remove the backup if it exists, we're making a new one

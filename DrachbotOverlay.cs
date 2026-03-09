@@ -71,7 +71,7 @@ namespace DrachbotOverlay
         private void ReplaceFiles() 
         {
             var gatewayLines = File.ReadAllLines(_gatewayFileAbs);
-            int gatewayExpectedLines = 165;
+            int gatewayExpectedLines = 166;
             var loadingLines = File.ReadAllLines(_loadingViewsFileAbs);
             int loadingExpectedLines = 525;
             var profileLines = File.ReadAllLines(_profileViewsFileAbs);
@@ -112,7 +112,7 @@ namespace DrachbotOverlay
             }
             else
             {
-                gatewayLines[101] = $@"<script type=""text/javascript"" src=""hud/js/drachbot-views.js""></script>";
+                gatewayLines[102] = $@"<script type=""text/javascript"" src=""hud/js/drachbot-views.js""></script>";
                 if (loadingLines.Length != loadingExpectedLines) {
                     Logger.LogError($"Drachbot: Skipping injection, file is not expected length of {loadingExpectedLines} but was " + loadingLines.Length);
                 }
